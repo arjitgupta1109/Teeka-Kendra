@@ -100,5 +100,5 @@ npm start
 📬 Author
 Arjit Gupta
 📧 guptaarjit11@gmail.com
-🌐 GitHub Profile
+🌐 @arjitgupta1109
 
