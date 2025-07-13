@@ -1,4 +1,4 @@
-# 💉 Teeka-Kendra – Full Stack Vaccination Portal
+# 💉 Vaccination Portal-Full Stack Project
 
 Teeka-Kendra is a full-stack web application built to streamline the vaccination appointment process. It allows users to register, log in, manage child/adult vaccination appointments, and track vaccination status — all in one place with a clean user interface.
 
