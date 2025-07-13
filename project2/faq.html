@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Vaccination Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background: url('photo.jpeg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        nav {
+            background-color: #007BFF;
+            padding: 15px;
+            color: white;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.6); /* Transparent effect */
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #007BFF;
+            text-align: center;
+        }
+
+        .faq-button {
+            width: 100%;
+            text-align: left;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .faq-button:hover {
+            background-color: #0056b3;
+        }
+
+        .faq-content {
+            display: none;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Report issue section */
+        .report-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            resize: none;
+        }
+
+        .report-button {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .report-button:hover {
+            background-color: #218838;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="dashboard.html">Home</a>
+        <a href="faq.html">FAQ</a>
+    </nav>
+
+    <div class="container">
+        <h1>Frequently Asked Questions</h1>
+
+        <button class="faq-button">What is a vaccine?</button>
+        <div class="faq-content">
+            <p>A vaccine is a biological preparation that provides active acquired immunity to a particular infectious disease. Vaccines contain an agent that resembles a disease-causing microorganism and is often made from weakened or killed forms of the microbe, its toxins, or one of its surface proteins.</p>
+        </div>
+
+        <button class="faq-button">Why are vaccines important?</button>
+        <div class="faq-content">
+            <p>Vaccines help prevent diseases, reduce severity, and protect public health. They have led to the eradication or near-eradication of diseases like smallpox and polio.</p>
+        </div>
+
+        <button class="faq-button">Types of Vaccines and Diseases</button>
+        <div class="faq-content">
+            <p>Different types of vaccines include:</p>
+            <ul>
+                <li>MMR (Measles, Mumps, and Rubella)</li>
+                <li>Polio Vaccine</li>
+                <li>Hepatitis B Vaccine</li>
+                <li>Influenza (Flu) Vaccine</li>
+                <li>COVID-19 Vaccine</li>
+            </ul>
+        </div>
+
+        <button class="faq-button">Are vaccines safe?</button>
+        <div class="faq-content">
+            <p>Yes, vaccines undergo rigorous testing in clinical trials and are approved by health authorities like WHO and FDA before being distributed. They are continuously monitored for safety.</p>
+        </div>
+
+        <button class="faq-button">Do vaccines have side effects?</button>
+        <div class="faq-content">
+            <p>Most vaccines cause mild side effects like soreness, fever, or fatigue. Serious side effects are extremely rare and are monitored closely.</p>
+        </div>
+
+        <button class="faq-button">How do vaccines work?</button>
+        <div class="faq-content">
+            <p>Vaccines train the immune system to recognize and fight harmful viruses or bacteria by introducing harmless parts of the pathogen, like proteins or weakened forms.</p>
+        </div>
+
+        <button class="faq-button">Can I get vaccinated if I have allergies?</button>
+        <div class="faq-content">
+            <p>It depends on the allergy. People with severe allergies to vaccine components should consult a doctor before getting vaccinated.</p>
+        </div>
+
+        <button class="faq-button">How often do I need to get vaccinated?</button>
+        <div class="faq-content">
+            <p>Some vaccines require only one dose, while others need boosters. For example, flu vaccines are taken yearly, while tetanus shots are given every 10 years.</p>
+        </div>
+
+        <button class="faq-button">Can I skip vaccines if others are vaccinated?</button>
+        <div class="faq-content">
+            <p>No, this weakens herd immunity. When a large number of people are vaccinated, it protects those who can't get vaccinated due to medical reasons.</p>
+        </div>
+
+        
+
+        <!-- Report Any Other Issue Section -->
+        <div class="report-section">
+            <h2>Report Any Other Issue</h2>
+            <textarea id="issueText" placeholder="Describe your issue here..."></textarea>
+            <button class="report-button" onclick="reportIssue()">Report Issue</button>
+        </div>
+    </div>
+
+    <script>
+        // Toggle FAQ answers
+        document.querySelectorAll('.faq-button').forEach(button => {
+            button.addEventListener('click', function () {
+                let content = this.nextElementSibling;
+                content.style.display = (content.style.display === "block") ? "none" : "block";
+            });
+        });
+
+        // Handle issue reporting
+        function reportIssue() {
+            let issueText = document.getElementById("issueText").value.trim();
+            if (issueText === "") {
+                alert("Please enter an issue before submitting.");
+            } else {
+                alert("Your issue has been reported.");
+                document.getElementById("issueText").value = ""; // Clear textarea after reporting
+            }
+        }
+    </script>
+
+</body>
+</html>

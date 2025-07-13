@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Confirmation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+            background: url('payment.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            transition: all 0.3s ease;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .payment-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        input {
+            margin: 10px 0;
+            padding: 15px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: #28a745;
+            outline: none;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .success-message {
+            text-align: center;
+            font-size: 1.4rem;
+            color: green;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .appointment-details {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .appointment-details p {
+            margin: 5px 0;
+            font-size: 1.1rem;
+        }
+
+        #homeLink {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.2rem;
+            color: #007bff;
+            text-decoration: none;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+
+        #homeLink:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 25px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            button {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a id="homeLink" href="dashboard.html">Home</a>
+
+    <div class="container">
+        <h2>Confirm Payment</h2>
+        <div class="appointment-details" id="appointmentDetails"></div>
+        <div class="payment-form">
+            <input type="text" id="paymentCard" placeholder="Enter Credit/Debit Card Number" required>
+            <input type="text" id="paymentCvv" placeholder="Enter CVV" required>
+            <button onclick="processPayment()">Pay Now</button>
+        </div>
+        <div id="paymentSuccess" class="success-message">
+            Payment Done Successfully! Your appointment is confirmed.
+        </div>
+    </div>
+
+    <script>
+        // Function to generate a random 6-digit token
+        function generateToken() {
+            return Math.floor(100000 + Math.random() * 900000);
+        }
+
+        // Display appointment details
+        const appointment = JSON.parse(localStorage.getItem("appointmentDetails"));
+        const patient = JSON.parse(localStorage.getItem("patientDetails"));
+        const tokenNumber = generateToken(); // Generate new token every time
+
+        if (appointment && patient) {
+            document.getElementById("appointmentDetails").innerHTML = ` 
+                <p><strong>Name:</strong> ${patient.name}</p>
+                <p><strong>Vaccine:</strong> ${patient.vaccine}</p>
+                <p><strong>Appointment Date:</strong> ${appointment.date}</p>
+                <p><strong>Appointment Slot:</strong> ${appointment.slot}</p>
+                <p><strong>Token Number:</strong> <span id="tokenNumber" style="color: blue; font-weight: bold;">${tokenNumber}</span></p>
+            `;
+        }
+
+        // Process the payment
+        function processPayment() {
+            const cardNumber = document.getElementById("paymentCard").value;
+            const cvv = document.getElementById("paymentCvv").value;
+
+            if (cardNumber && cvv) {
+                // Get existing appointment details
+                const appointment = JSON.parse(localStorage.getItem("appointmentDetails"));
+                const patient = JSON.parse(localStorage.getItem("patientDetails"));
+
+                // Create confirmed appointment object
+                const confirmedAppointment = {
+                    name: patient.name,
+                    type: patient.type,
+                    vaccine: patient.vaccine,
+                    date: appointment.date,
+                    time: appointment.slot,
+                    token: tokenNumber, // Use the generated token
+                    status: "Confirmed",
+                    paymentDate: new Date().toLocaleString()
+                };
+
+                // Get existing appointments or create a new array
+                let appointments = JSON.parse(localStorage.getItem("confirmedAppointments")) || [];
+                
+                // Add new appointment
+                appointments.push(confirmedAppointment);
+                
+                // Save back to localStorage
+                localStorage.setItem("confirmedAppointments", JSON.stringify(appointments));
+
+                // Show success message
+                document.getElementById("paymentSuccess").style.display = 'block';
+
+                // Clear temporary data
+                localStorage.removeItem("appointmentDetails");
+                localStorage.removeItem("patientDetails");
+                
+            } else {
+                alert("Please complete payment details.");
+            }
+        }
+    </script>
+</body>
+</html>

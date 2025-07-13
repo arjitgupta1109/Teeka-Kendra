@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('appoint.webp') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-box {
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #ddd;
+            margin: 5px 0;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+        }
+
+        select, input[type="date"] {
+            background-color: #444;
+            color: #fff;
+            border: 1px solid #444;
+        }
+
+        button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #homeLink {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.2rem;
+            color: #007bff;
+            text-decoration: none;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+
+        #homeLink:hover {
+            text-decoration: underline;
+        }
+
+        .radio-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .radio-container label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 1rem;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <a id="homeLink" href="dashboard.html">Home</a>
+
+    <div class="form-container">
+        <div class="form-box">
+            <h2>Patient Details</h2>
+            <p><strong>Name:</strong> <span id="patientName"></span></p>
+            <p><strong>Address:</strong> <span id="patientAddress"></span></p>
+            <p><strong>Date of Birth:</strong> <span id="patientDob"></span></p>
+            <p><strong>Disease:</strong> <span id="patientDisease"></span></p>
+            <p><strong>Vaccine:</strong> <span id="patientVaccine"></span></p>
+        </div>
+
+        <div class="form-box">
+            <h2>Choose Appointment Slot</h2>
+            <input type="date" id="appointmentDate" required>
+
+            <div class="radio-container">
+                <label>
+                    <input type="radio" id="morningSlot" name="slotType" value="morning" onclick="updateSlots()"> 
+                    Morning (10 AM - 1 PM)
+                </label>
+                <label>
+                    <input type="radio" id="eveningSlot" name="slotType" value="evening" onclick="updateSlots()"> 
+                    Evening (4 PM - 8 PM)
+                </label>
+            </div>
+
+            <select id="appointmentSlots">
+                <option value="">Select a Time Slot</option>
+            </select>
+
+            <button onclick="bookAppointment()">Book Appointment</button>
+        </div>
+    </div>
+
+    <script>
+        // Set minimum date to today
+        document.getElementById("appointmentDate").min = new Date().toISOString().split('T')[0];
+        
+        // Display Patient Details
+        const patient = JSON.parse(localStorage.getItem("patientDetails"));
+        if (patient) {
+            document.getElementById("patientName").innerText = patient.name;
+            document.getElementById("patientAddress").innerText = patient.address;
+            document.getElementById("patientDob").innerText = patient.dob;
+            document.getElementById("patientDisease").innerText = patient.disease;
+            document.getElementById("patientVaccine").innerText = patient.vaccine;
+        }
+
+        // Update time slots based on selection
+        function updateSlots() {
+            const slotSelect = document.getElementById("appointmentSlots");
+            slotSelect.innerHTML = '<option value="">Select a Time Slot</option>';
+            
+            let slots = [];
+            
+            if (document.getElementById("morningSlot").checked) {
+                slots = [
+                    "10:00 AM - 10:30 AM", "10:30 AM - 11:00 AM", 
+                    "11:00 AM - 11:30 AM", "11:30 AM - 12:00 PM", 
+                    "12:00 PM - 12:30 PM", "12:30 PM - 1:00 PM"
+                ];
+            } else if (document.getElementById("eveningSlot").checked) {
+                slots = [
+                    "4:00 PM - 4:30 PM", "4:30 PM - 5:00 PM", 
+                    "5:00 PM - 5:30 PM", "5:30 PM - 6:00 PM", 
+                    "6:00 PM - 6:30 PM", "6:30 PM - 7:00 PM", 
+                    "7:00 PM - 7:30 PM", "7:30 PM - 8:00 PM"
+                ];
+            }
+
+            slots.forEach(slot => {
+                let option = document.createElement("option");
+                option.value = slot;
+                option.textContent = slot;
+                slotSelect.appendChild(option);
+            });
+        }
+
+        // Handle appointment booking
+        function bookAppointment() {
+            const selectedDate = document.getElementById("appointmentDate").value;
+            const selectedSlot = document.getElementById("appointmentSlots").value;
+
+            if (selectedDate && selectedSlot) {
+                const appointmentDetails = {
+                    name: patient.name,
+                    date: selectedDate,
+                    slot: selectedSlot
+                };
+                localStorage.setItem("appointmentDetails", JSON.stringify(appointmentDetails));
+                window.location.href = "confirmation.html";
+            } else {
+                alert("Please select both a date and a time slot.");
+            }
+        }
+    </script>
+</body>
+</html>

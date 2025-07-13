@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaccine Status</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: url('https://chinaobservers.eu/wp-content/uploads/2022/09/covid-still-life-with-vaccine-2-e1664458442814.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            background-color: rgba(0, 123, 255, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        tr:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        @media (max-width: 600px) {
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Vaccine Status</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Vaccine Name</th>
+                <th>Type</th>
+                <th>Expiry Date</th>
+                <th>Manufacturer</th>
+                <th>Quantity Available</th> <!-- Added New Column -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>MMR (Measles, Mumps, Rubella)</td><td>Child</td><td>2026-12-01</td><td>Merck & Co.</td><td>50</td></tr>
+            <tr><td>Hepatitis B</td><td>Child</td><td>2025-08-15</td><td>GlaxoSmithKline (GSK)</td><td>60</td></tr>
+            <tr><td>COVID-19</td><td>Adult</td><td>2027-05-30</td><td>Moderna</td><td>100</td></tr>
+            <tr><td>Polio</td><td>Child</td><td>2026-06-10</td><td>Sanofi Pasteur</td><td>75</td></tr>
+            <tr><td>Influenza</td><td>Adult</td><td>2025-10-20</td><td>Abbott</td><td>120</td></tr>
+            <tr><td>Varicella (Chickenpox)</td><td>Child</td><td>2026-11-15</td><td>Merck & Co.</td><td>40</td></tr>
+            <tr><td>HPV (Human Papillomavirus)</td><td>Adult</td><td>2027-03-22</td><td>Merck & Co.</td><td>90</td></tr>
+            <tr><td>Pneumococcal Conjugate</td><td>Adult</td><td>2026-09-14</td><td>Pfizer</td><td>80</td></tr>
+            <tr><td>Meningococcal</td><td>Child</td><td>2025-12-30</td><td>GlaxoSmithKline (GSK)</td><td>45</td></tr>
+            <tr><td>Rotavirus</td><td>Child</td><td>2026-07-19</td><td>Merck & Co.</td><td>70</td></tr>
+            <tr><td>Hepatitis A</td><td>Adult</td><td>2027-01-25</td><td>GlaxoSmithKline (GSK)</td><td>55</td></tr>
+            <tr><td>DTaP (Diphtheria, Tetanus, Pertussis)</td><td>Child</td><td>2026-04-18</td><td>Sanofi Pasteur</td><td>60</td></tr>
+            <tr><td>Shingles (Herpes Zoster)</td><td>Adult</td><td>2027-08-05</td><td>GlaxoSmithKline (GSK)</td><td>85</td></tr>
+            <tr><td>Typhoid</td><td>Adult</td><td>2025-11-11</td><td>Sanofi Pasteur</td><td>30</td></tr>
+            <tr><td>Rabies</td><td>Adult</td><td>2026-02-28</td><td>Sanofi Pasteur</td><td>20</td></tr>
+            <tr><td>Malaria</td><td>Child</td><td>2028-05-14</td><td>GSK</td><td>95</td></tr>
+            <tr><td>RSV (Respiratory Syncytial Virus)</td><td>Adult</td><td>2027-12-20</td><td>Pfizer</td><td>50</td></tr>
+            <tr><td>Anthrax</td><td>Adult</td><td>2027-11-18</td><td>Emergent BioSolutions</td><td>15</td></tr>
+            <tr><td>Smallpox</td><td>Adult</td><td>2029-01-05</td><td>Bavarian Nordic</td><td>25</td></tr>
+            <tr><td>Zika Virus</td><td>Adult</td><td>2028-07-21</td><td>Inovio</td><td>40</td></tr>
+            <tr><td>Tuberculosis (BCG)</td><td>Child</td><td>2029-06-15</td><td>Serum Institute of India</td><td>110</td></tr>
+            <tr><td>Ebola</td><td>Adult</td><td>2028-10-30</td><td>Merck & Co.</td><td>18</td></tr>
+            <tr><td>Hantavirus</td><td>Adult</td><td>2029-02-10</td><td>Johnson & Johnson</td><td>10</td></tr>
+            <tr><td>Leptospirosis</td><td>Adult</td><td>2028-09-05</td><td>Sanofi</td><td>12</td></tr>
+            <tr><td>Plague</td><td>Adult</td><td>2029-03-30</td><td>Dynavax</td><td>8</td></tr>
+            <tr><td>Norovirus</td><td>Adult</td><td>2028-11-15</td><td>Takeda</td><td>35</td></tr>
+            <tr><td>West Nile Virus</td><td>Adult</td><td>2029-04-20</td><td>PaxVax</td><td>20</td></tr>
+            <tr><td>Dengue Vaccine</td><td>Adult</td><td>2027-09-12</td><td>Takeda</td><td>45</td></tr>
+            <tr><td>Yellow Fever</td><td>Adult</td><td>2028-06-30</td><td>Sanofi</td><td>30</td></tr>
+            <tr><td>Japanese Encephalitis</td><td>Child</td><td>2027-12-25</td><td>Valneva</td><td>60</td></tr>
+        </tbody>
+    </table>
+</body>
+</html>
